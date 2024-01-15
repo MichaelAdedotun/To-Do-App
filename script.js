@@ -1,11 +1,12 @@
 let inputTask = document.getElementById('input-task');
 let taskContainer = document.getElementById('task-container');
 
+
 function addTask() {
     if (inputTask.value === '') {
-        alert('Input a task');
+        alert('Input a Task')
     }
-    else{
+    else {
         let li = document.createElement('li');
         li.innerHTML = inputTask.value;
         taskContainer.appendChild(li);
@@ -14,14 +15,29 @@ function addTask() {
         li.appendChild(span);
     }
     inputTask.value = '';
+    saveData();
 }
 
 taskContainer.addEventListener( 'click', function (e) {
     if (e.target.tagName === 'LI'){
         e.target.classList.toggle('checked');
+        saveData();
     }
     else if (e.target.tagName === 'SPAN'){
         e.target.parentElement.remove();
+        saveData();
     }
 })
+
+function saveData() {
+    localStorage.setItem('data' , taskContainer.innerHTML);
+}
+
+function showData() {
+    taskContainer.innerHTML = localStorage.getItem('data');
+}
+showData();
+
+
+
 
